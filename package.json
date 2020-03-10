@@ -1,0 +1,37 @@
+{
+    "name": "basic_websocket_backend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/weisslogia/basic_websocket_backend.git"
+    },
+    "keywords": [
+        "websocket",
+        "chat",
+        "node",
+        "express"
+    ],
+    "author": "weissloiga",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/weisslogia/basic_websocket_backend/issues"
+    },
+    "homepage": "https://github.com/weisslogia/basic_websocket_backend#readme",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "crypto": "^1.0.1",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
+        "pg": "^7.18.2",
+        "pg-hstore": "^2.3.3",
+        "sequelize": "^5.21.5",
+        "socket-io-server": "^1.0.5",
+        "sqlite3": "^4.1.1"
+    }
+}
