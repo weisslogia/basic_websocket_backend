@@ -4,13 +4,14 @@ module.exports = function(app) {
     const middlewares = require('../middleware/validtoken.middleware');
 
     app.route('/message')
-        .get(middlewares.valid_login_token,messageController.get_message)
-        .post(middlewares.valid_login_token,messageController.create_message);
+        .get(middlewares.valid_login_token, messageController.get_message)
+        .post(messageController.sendJSONText)
     app.route('/message/all')
-        .get(middlewares.valid_admin_token,messageController.get_all_message);
+        .get(middlewares.valid_admin_token, messageController.get_all_message);
     app.route('/message/all/:id')
-        .get(middlewares.valid_admin_token,messageController.get_message_id);
+        .get(middlewares.valid_admin_token, messageController.get_message_id);
     app.route('/message/:messageId')
-        .get(middlewares.valid_login_token,messageController.get_message)
+        .get(middlewares.valid_login_token, messageController.get_message)
+        .post(messageController.sendJSONTextToUser)
         // .delete(middlewares.valid_login_token,messageController.delete_message);
 }

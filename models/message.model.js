@@ -2,11 +2,11 @@ const Sequelize = require('sequelize');
 
 module.exports = (sequelize) => {
     return sequelize.define('message', {
-        sender:{
+        sender: {
             type: Sequelize.INTEGER,
-            allowNull: false
+            allowNull: true
         },
-        reciver:{
+        reciver: {
             type: Sequelize.INTEGER,
             allowNull: true
         },
