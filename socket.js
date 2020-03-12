@@ -10,13 +10,17 @@ data.socket.on('connection', function(client) {
             decodedData = decoded;
         }
     });
-    // console.log(client.id)
+    console.log(decodedData.id)
     const usr = {
         name: decodedData.name,
         id: decodedData.id,
         token: client.handshake.query.access_token,
         socketId: client.id
     }
+    data.sockets.push({
+        socketId: client.id,
+        socket: client
+    });
     data.connectedUsers.push(usr);
     client.broadcast.emit('newUser', usr);
     client.on('message-diffusion', async(message) => {
@@ -72,11 +76,14 @@ data.socket.on('connection', function(client) {
     })
     client.on('disconnect', function() {
         const usr = [];
-        data.connectedUsers.forEach(user => {
+        const soc = [];
+        data.connectedUsers.forEach((user, index) => {
             if (user.token !== client.handshake.query.access_token) {
+                soc.push(data.sockets[index]);
                 usr.push(user)
             }
         });
+        data.sockets = soc;
         client.broadcast.emit('disconnectedUser', client.handshake.query.access_token)
         data.connectedUsers = usr;
     });

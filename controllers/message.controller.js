@@ -38,6 +38,30 @@ module.exports.sendJSONText = async(req, res) => {
     res.send('Done')
 }
 
+module.exports.sendJSONTextToUser = async(req, res) => {
+    const reciver = req.params.messageId;
+    // models.socket
+    await models.message.create({
+        type: 3,
+        reciver,
+        message: JSON.stringify(req.body)
+    });
+    models.connectedUsers.forEach(item => {
+        if (item.id == reciver) {
+            models.sockets.forEach(sock => {
+                if (sock.socketId === item.socketId) {
+                    sock.socket.emit('message-diffusion-json', {
+                        type: 3,
+                        message: JSON.stringify(req.body)
+                    });
+                }
+            });
+        }
+    })
+    res.send('Done')
+}
+
+
 module.exports.get_all_message = async(req, res) => {
     try {
         const data = await models.message.findAll();
@@ -77,7 +101,6 @@ module.exports.get_message = async(req, res) => {
             data = (await models.message.findAll({
                 where: {
                     id: req.params.messageId,
-                    // delete: false
                     userId: req.decoded.id
                 }
             }))[0]
@@ -97,9 +120,10 @@ module.exports.get_message = async(req, res) => {
             });
         }
 
-        if (data)
+        if (data) {
+            console.log(data)
             res.send(data)
-        else {
+        } else {
             res.status(404);
             res.send({
                 error: 404,

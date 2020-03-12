@@ -20,7 +20,8 @@ const sequelize = new Sequelize({
     logging: false
 });
 
-const connectedUsers = []
+const connectedUsers = [];
+const sockets = [];
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,7 +36,8 @@ module.exports = {
     sequelize,
     socket,
     connectedUsers,
-    Op
+    Op,
+    sockets
 }
 
 async function start() {
