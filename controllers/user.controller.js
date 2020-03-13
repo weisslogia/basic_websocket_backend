@@ -49,7 +49,7 @@ module.exports.login = async(req, res) => {
             const token = jwt.sign(payload, config.key, {
                 expiresIn: 700000
             });
-            res.send({ token: token, tokenExpire: 700000, user: { name: user.name } })
+            res.send({ token: token, tokenExpire: 700000, user: { name: user.name, id: user.id } })
         } else {
             const created = await this.create(req.body);
             if (created.ok) {
